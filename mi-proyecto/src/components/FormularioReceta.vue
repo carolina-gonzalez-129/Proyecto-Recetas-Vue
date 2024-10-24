@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2>Agregar Receta</h2>
+    <h2>{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</h2>
     <form @submit.prevent="submitForm" class="mb-5">
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
@@ -58,7 +58,7 @@
             v-model="receta.imagen"
         />
       </div>
-      <button type="submit" class="btn btn-primary">Agregar Receta</button>
+      <button type="submit" class="btn btn-primary">{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</button>
     </form>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       isSubmitting: false,
+      esEdicion: false,
       receta: {
         nombre: '',
         descripcion: '',
@@ -77,11 +78,15 @@ export default {
         pasos: [],
         imagen: ''
       },
-      nuevoIngrediente: '',
-      nuevoPaso: '',
-      nombreError: '',
-      descripcionError: ''
+
     };
+  },
+  mounted() {
+    const id = this.$route.params.id;
+    if (id) {
+      this.esEdicion = true;
+
+    }
   },
   methods: {
     validateNombre() {
@@ -93,6 +98,7 @@ export default {
         this.nombreError = '';
       }
     },
+
     validateDescripcion() {
       if (!this.receta.descripcion) {
         this.descripcionError = 'Se requiere que ingreses una descripcion';
@@ -114,29 +120,40 @@ export default {
         this.nuevoPaso = '';
       }
     },
+    async modificarReceta() {
+      const id = this.$route.params.id;
+      try {
+        this.agregarPaso()
+        this.agregarIngrediente()
+        const response = await axios.put(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`, this.receta);
+        alert('Pude modificar la receta!');
+        this.$router.push('/recetas');
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async agregarReceta() {
+      try {
+        this.agregarPaso()
+        this.agregarIngrediente()
+        const response = await axios.post('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas', this.receta);
+        alert('Receta agregada!');
+        this.$router.push('/recetas');
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async submitForm() {
       this.validateNombre();
       this.validateDescripcion();
-
       if (!this.nombreError && !this.descripcionError) {
         this.isSubmitting = true;
-        try {
-          const response = await axios.post('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas', this.receta);
-          console.log('Receta agregada:', response.data);
 
-          this.receta.nombre = '';
-          this.receta.descripcion = '';
-          this.receta.ingredientes = [];
-          this.receta.pasos = [];
-          this.receta.imagen = '';
-
-          this.$emit('recetaAgregada', response.data);
-          this.$router.push('/recetas');
-        } catch (error) {
-          console.error('Error al enviar la receta:', error);
+        if (this.esEdicion) {
+          await this.modificarReceta();
+        } else {
+          await this.agregarReceta();
         }
-      } else {
-        console.log('Corregi los errores');
       }
     }
   }
@@ -148,3 +165,4 @@ export default {
   max-width: 600px;
 }
 </style>
+
