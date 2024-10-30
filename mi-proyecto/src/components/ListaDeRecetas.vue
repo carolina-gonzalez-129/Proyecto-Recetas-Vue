@@ -1,29 +1,34 @@
 <template>
   <div class="container mt-5">
-    <h2>Lista de Recetas</h2>
-    <ul class="list-group">
-      <li
+    <h2 class="titulo-recetas">Recetas</h2>
+    <div class="row">
+      <div
+          class="col-4 col-sm-4 col-md-4 col-lg-4 mb-4"
           v-for="receta in recetas"
           :key="receta.id"
-          class="list-group-item d-flex justify-content-between align-items-center"
       >
-        <router-link :to="'/receta/' + receta.id">{{ receta.nombre }}</router-link>
-        <img v-if="receta.imagen" :src="receta.imagen" alt="Imagen de la receta" class="img-fluid rounded" style="max-height: 100px;">
-        <div>
-          <button @click="eliminarReceta(receta.id)" class="btn btn-danger rounded">Eliminar</button>
-          <button @click="irAModificarReceta(receta.id)" class="btn btn-danger rounded">Modificar</button>
-
+        <div class="card h-100">
+          <img
+              v-if="receta.imagen"
+              :src="receta.imagen"
+              alt="Imagen de la receta"
+              class="card-img-top"
+          >
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">{{ receta.nombre }}</h5>
+            <p class="card-text">{{ receta.descripcion }}</p>
+            <router-link :to="'/receta/' + receta.id" class="btn btn-primary">Ver Receta</router-link>
+          </div>
         </div>
-
-
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
-import {useGlobalStore} from "../../store/global.js";
+import { useGlobalStore } from "../../store/global.js";
 
 export default {
   data() {
@@ -39,44 +44,66 @@ export default {
     async cargarRecetas() {
       try {
         const response = await axios.get('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas');
-        console.log(response.data);
         this.recetas = response.data;
       } catch (error) {
         console.error(error);
       }
     },
     async eliminarReceta(id) {
-      const receta = this.recetas.find(r=>r.id===id);
+      const receta = this.recetas.find(r => r.id === id);
       if (receta.autor === this.globalStore.getActiveUsername) {
         try {
-          const response = await axios.delete(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`);
-          this.recetas = this.recetas.filter(receta => receta.id !== id);
-          alert('Pude eliminar la receta!')
+          await axios.delete(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`);
+          alert('Receta eliminada');
         } catch (error) {
           console.error('Error al eliminar la receta:', error);
         }
-      }
-      else{
-        alert('No tenes los permisos suficientes para eliminar esta receta xq no sos su autor')
+      } else {
+        alert('No tenes permisos para eliminar esta receta porque no eres su autor');
       }
     },
     irAModificarReceta(id) {
-      const receta = this.recetas.find(r=>r.id===id);
+      const receta = this.recetas.find(r => r.id === id);
       if (receta.autor === this.globalStore.getActiveUsername) {
         this.$router.push(`/modificar/${id}`);
-      }
-      else{
-        alert('No posees los permisos para modificar esta receta ya q no sos su autor')
+      } else {
+        alert('No tenes permisos para modificar esta receta porque no eres su autor');
       }
     }
-
-
   }
 };
 </script>
 
 <style scoped>
-.container {
-  max-width: 800px;
+.titulo-recetas {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-img-top {
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.card {
+  height: 100%;
+}
+
+@media (min-width: 992px) {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-12 {
+    max-width: 100%;
+  }
 }
 </style>

@@ -59,6 +59,7 @@
             v-model="receta.imagen"
         />
       </div>
+
       <button type="submit" class="btn btn-primary">{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</button>
     </form>
   </div>
@@ -130,9 +131,11 @@ export default {
         try {
           this.agregarPaso()
           this.agregarIngrediente()
+          this.receta.autor = this.globalStore.getActiveUsername;
           const response = await axios.put(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`, this.receta);
           alert('Pude modificar la receta!');
           this.$router.push('/recetas');
+
         } catch (error) {
           console.error(error);
         }
@@ -177,6 +180,10 @@ export default {
 <style scoped>
 .container {
   max-width: 600px;
+}
+textarea {
+  background-color: rgba(241, 241, 241, 0.62);
+  color: black;
 }
 </style>
 

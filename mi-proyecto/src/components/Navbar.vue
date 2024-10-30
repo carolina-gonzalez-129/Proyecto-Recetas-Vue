@@ -1,15 +1,14 @@
 <template>
   <section class="src-componentes-navbar">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <router-link class="navbar-brand" to="/"> Pagina principal </router-link>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">Pagina principal</router-link>
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/login">Iniciar sesion</router-link>
           </li>
-
-
           <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/register">Registrarme</router-link>
           </li>
@@ -24,6 +23,7 @@
             <router-link class="nav-link" to="/logout">Cerrar sesion</router-link>
           </li>
         </ul>
+      </div>
       </div>
     </nav>
   </section>
@@ -51,5 +51,8 @@ export default {
 <style scoped>
 .src-componentes-navbar {
   color: #c800ff;
+}
+.navbar {
+  height: 16px;
 }
 </style>
