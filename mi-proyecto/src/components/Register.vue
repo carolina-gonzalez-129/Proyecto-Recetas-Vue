@@ -65,7 +65,7 @@ export default {
         else {
           this.isSubmitting = true;
           await axios.post('https://670ed6f63e7151861655ee25.mockapi.io/uwu/users', this.user);
-          alert('Registro exitoso');
+          alert('Se pudo registrar');
           this.$router.push('/login');
         }
 

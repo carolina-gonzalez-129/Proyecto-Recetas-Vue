@@ -1,3 +1,4 @@
+
 <template>
   <div class="container mt-5">
     <h2>{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</h2>
@@ -65,19 +66,23 @@
 
 <script>
 import axios from 'axios';
+import {useGlobalStore} from "../../store/global.js";
 
 export default {
   data() {
     return {
       isSubmitting: false,
       esEdicion: false,
+      globalStore: useGlobalStore(),
       receta: {
         nombre: '',
         descripcion: '',
         ingredientes: [],
         pasos: [],
-        imagen: ''
+        imagen: '',
+        autor: ''
       },
+
 
     };
   },
@@ -122,20 +127,23 @@ export default {
     },
     async modificarReceta() {
       const id = this.$route.params.id;
-      try {
-        this.agregarPaso()
-        this.agregarIngrediente()
-        const response = await axios.put(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`, this.receta);
-        alert('Pude modificar la receta!');
-        this.$router.push('/recetas');
-      } catch (error) {
-        console.error(error);
-      }
+        try {
+          this.agregarPaso()
+          this.agregarIngrediente()
+          const response = await axios.put(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`, this.receta);
+          alert('Pude modificar la receta!');
+          this.$router.push('/recetas');
+        } catch (error) {
+          console.error(error);
+        }
+
     },
     async agregarReceta() {
       try {
         this.agregarPaso()
         this.agregarIngrediente()
+        const usuarioActual = this.globalStore.getActiveUsername;
+        this.receta.autor = usuarioActual;
         const response = await axios.post('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas', this.receta);
         alert('Receta agregada!');
         this.$router.push('/recetas');
@@ -147,14 +155,20 @@ export default {
       this.validateNombre();
       this.validateDescripcion();
       if (!this.nombreError && !this.descripcionError) {
+        const globalStore = this.globalStore;
+        if(!globalStore.isUserLoggedIn){
+          alert('Tenes que estar logeado para subir una receta')
+        }
+        else{
         this.isSubmitting = true;
-
+          const usuarioActual = globalStore.getActiveUsername;
         if (this.esEdicion) {
           await this.modificarReceta();
         } else {
           await this.agregarReceta();
         }
       }
+        }
     }
   }
 };

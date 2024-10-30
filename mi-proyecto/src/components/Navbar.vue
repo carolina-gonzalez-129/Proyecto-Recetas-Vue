@@ -5,23 +5,23 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/login">Iniciar sesion</router-link>
           </li>
-          <li class="nav-item">
+
+
+          <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/register">Registrarme</router-link>
           </li>
-          <!-- Estaria bueno dsps configurar esto para q la parte de agregar, eliminar y modificar
-solo se muestren cuando el usuario se autentique-->
-          <li class="nav-item">
+          <li class="nav-item" v-if="userLogged">
+            <router-link class="nav-link" :to="`/recetas`">Lista de recetas</router-link>
+          </li>
+          <li class="nav-item" v-if="userLogged">
             <router-link class="nav-link" to="/agregar">Agregar Receta</router-link>
           </li>
 
-          <li class="nav-item">
-            <router-link class="nav-link" to="/eliminar">Eliminar Receta</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/modificar/id">Modificar Receta</router-link>
+          <li class="nav-item" v-if="userLogged">
+            <router-link class="nav-link" to="/logout">Cerrar sesion</router-link>
           </li>
         </ul>
       </div>
@@ -30,8 +30,21 @@ solo se muestren cuando el usuario se autentique-->
 </template>
 
 <script>
+import {useGlobalStore} from "../../store/global.js";
+import {computed} from "vue";
 export default {
   name: 'Navbar',
+  setup() {
+    const globalStore = useGlobalStore();
+
+    const userLogged = computed(() => globalStore.isUserLoggedIn);
+    const userNotLogged = computed(() => !globalStore.isUserLoggedIn);
+
+    return {
+      userLogged,
+      userNotLogged,
+    };
+  },
 };
 </script>
 

@@ -29,6 +29,7 @@
 
 <script>
 import axios from 'axios';
+import {useGlobalStore} from "../../store/global.js";
 
 export default {
   data() {
@@ -36,7 +37,8 @@ export default {
       credentials: {
         username: '',
         password: ''
-      }
+      },
+      globalStore : useGlobalStore()
     };
   },
   methods: {
@@ -50,12 +52,14 @@ export default {
         });
         if (response.data.length > 0) {
           alert('Se pudo iniciar sesion');
+          this.globalStore.setActiveUsername(this.credentials.username)
           this.$router.push('/agregar');
         } else {
-          alert('Usuario o contraseña incorrectos');
+          alert('Algo fallo');
         }
       } catch (error) {
         console.error(error);
+        alert('No estas registrado o las credenciales son incorrectas');
       }
     },
   },
