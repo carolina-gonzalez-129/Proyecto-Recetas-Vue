@@ -59,6 +59,7 @@
             v-model="receta.imagen"
         />
       </div>
+
       <button type="submit" class="btn btn-primary">{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</button>
     </form>
   </div>
@@ -177,6 +178,10 @@ export default {
 <style scoped>
 .container {
   max-width: 600px;
+}
+textarea {
+  background-color: rgba(241, 241, 241, 0.62);
+  color: black;
 }
 </style>
 

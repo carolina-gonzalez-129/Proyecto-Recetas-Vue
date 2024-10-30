@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>{{ receta.nombre }}</h1>
-    <img :src="receta.imagen" alt="Imagen de la receta">
     <p>{{ receta.descripcion }}</p>
     <h3>Ingredientes</h3>
     <ul>
@@ -11,7 +10,10 @@
     <ul>
       <li v-for="paso in receta.pasos" :key="paso">{{ paso }}</li>
     </ul>
+    <h3>Autor</h3>
+    <p>{{ receta.autor }}</p>
   </div>
+  <img :src="receta.imagen" alt="Imagen de la receta" style="width: 250px; height: 250px;">
 </template>
 
 <script>

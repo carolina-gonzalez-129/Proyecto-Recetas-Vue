@@ -8,8 +8,6 @@
           <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/login">Iniciar sesion</router-link>
           </li>
-
-
           <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/register">Registrarme</router-link>
           </li>

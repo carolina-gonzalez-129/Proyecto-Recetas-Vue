@@ -4,6 +4,9 @@ import 'bootstrap';
 import {createPinia} from 'pinia'
 import App from './App.vue'
 import router from './router';
+import 'bootswatch/dist/vapor/bootstrap.min.css';
+//le puse ese tema de vapor
+
 
 const pinia = createPinia()
 const app =
