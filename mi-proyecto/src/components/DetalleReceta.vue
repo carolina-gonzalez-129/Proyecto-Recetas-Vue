@@ -4,7 +4,7 @@
       <h1 class="titulo-receta">{{ receta.nombre }}</h1>
       <img class="imagen-receta" :src="receta.imagen" alt="Imagen de la receta">
     </div>
-
+  </div>
     <p class="descripcion-receta">{{ receta.descripcion }}</p>
 
     <div class="contenido-receta">
@@ -39,7 +39,7 @@
         </a>
       </section>
     </div>
-  </div>
+
 </template>
 
 <script>
