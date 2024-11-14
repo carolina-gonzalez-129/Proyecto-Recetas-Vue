@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Navbar -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="#">Food Connections</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,7 @@
           <li class="nav-item" v-if="userNotLogged">
             <router-link class="nav-link" to="/login">Iniciar sesión</router-link>
           </li>
+
           <li class="nav-item" v-if="userLogged">
             <router-link class="nav-link" to="/logout">Cerrar sesión</router-link>
           </li>
@@ -30,7 +31,9 @@
         <h1 class="display-3 text-white">Bienvenido al mejor sitio para crear y compartir recetas</h1>
         <p class="lead text-white">Aca podes descubrir y compartir las mejores recetas.</p>
         <div class="d-flex justify-content-start mt-4">
-          <router-link to="/login" class="btn btn-secondary mx-2">Iniciar sesión</router-link>
+          <router-link v-if="userNotLogged" to="/login" class="btn btn-secondary mx-2">
+            Iniciar sesión
+          </router-link>
           <router-link to="/recetas" class="btn btn-info mx-2">Explorar recetas</router-link>
         </div>
       </div>
@@ -86,6 +89,8 @@
           <p>Somos el sitio de recetas mejor puntuado de la web.</p>
         </div>
       </div>
+
+
     </div>
 
     <footer class="bg-dark text-white text-center py-3 mt-5">
@@ -111,6 +116,7 @@ export default {
     return {
       userLogged,
       userNotLogged,
+
     };
   },
 };

@@ -22,11 +22,16 @@
           <li class="nav-item" v-if="userLogged">
             <router-link class="nav-link" to="/logout">Cerrar sesion</router-link>
           </li>
+          <li class="nav-item" v-if="esAdmin">
+            <router-link class="nav-link" to="/informes">Informes</router-link>
+          </li>
+
         </ul>
       </div>
       </div>
     </nav>
   </section>
+
 </template>
 
 <script>
@@ -37,12 +42,14 @@ export default {
   setup() {
     const globalStore = useGlobalStore();
 
+     const esAdmin = computed(() => globalStore.getActiveUsername==='admin')
     const userLogged = computed(() => globalStore.isUserLoggedIn);
     const userNotLogged = computed(() => !globalStore.isUserLoggedIn);
 
     return {
       userLogged,
       userNotLogged,
+      esAdmin,
     };
   },
 };

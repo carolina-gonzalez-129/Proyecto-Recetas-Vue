@@ -6,6 +6,8 @@ import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import Logout from "./components/Logout.vue";
 import LandingPage from "./components/LandingPage.vue";
+import Informes from './components/Informes.vue';
+
 
 const routes = [
     { path: '/recetas', component: ListaDeRecetas },
@@ -17,6 +19,7 @@ const routes = [
     { path: '/', component: LandingPage },
     { path: '/register', component: Register },
     { path: '/logout', component: Logout },
+    { path: '/informes', component: Informes },
 ];
 
 const router = createRouter({

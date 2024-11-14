@@ -8,6 +8,7 @@ export const useGlobalStore = defineStore('global', {
         setActiveUsername(username) {
             this.activeUsername = username;
         },
+
         logout(){
             this.activeUsername = '';
         }

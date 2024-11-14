@@ -23,6 +23,11 @@
       </div>
     </div>
   </div>
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2024 Food Connections.</p>
+    <p><a href="mailto:contacto@foodconnections.com" class="text-white">contacto@foodconnections.com</a></p>
+  </footer>
+
 </template>
 
 
@@ -106,4 +111,8 @@ export default {
     max-width: 100%;
   }
 }
+.bg-dark {
+  background-color: #2c3e50 !important;
+}
+
 </style>

@@ -63,6 +63,10 @@
       <button type="submit" class="btn btn-primary">{{ esEdicion ? 'Modificar Receta' : 'Agregar Receta' }}</button>
     </form>
   </div>
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2024 Food Connections.</p>
+    <p><a href="mailto:contacto@foodconnections.com" class="text-white">contacto@foodconnections.com</a></p>
+  </footer>
 </template>
 
 <script>
@@ -178,6 +182,9 @@ export default {
 </script>
 
 <style scoped>
+.bg-dark {
+  background-color: #2c3e50 !important;
+}
 .container {
   max-width: 600px;
 }

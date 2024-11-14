@@ -4,7 +4,7 @@
       <h1 class="titulo-receta">{{ receta.nombre }}</h1>
       <img class="imagen-receta" :src="receta.imagen" alt="Imagen de la receta">
     </div>
-  </div>
+
     <p class="descripcion-receta">{{ receta.descripcion }}</p>
 
     <div class="contenido-receta">
@@ -23,7 +23,7 @@
       <p class="autor-receta">Autor: {{ receta.autor }}</p>
       <section class="acciones">
         <router-link
-            v-if="receta.id && globalStore.getActiveUsername === receta.autor"
+            v-if="receta.id && globalStore.getActiveUsername === receta.autor || globalStore.getActiveUsername === 'admin'"
             class="btn btn-modificar"
             :to="`/modificar/${receta.id}`"
         >
@@ -31,7 +31,7 @@
         </router-link>
 
         <a
-            v-if="receta.id && globalStore.getActiveUsername === receta.autor"
+            v-if="receta.id && globalStore.getActiveUsername === receta.autor || globalStore.getActiveUsername === 'admin' "
             class="btn btn-eliminar"
             @click.prevent="irAeliminarReceta"
         >
@@ -39,18 +39,25 @@
         </a>
       </section>
     </div>
-
+  </div>
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2024 Food Connections.</p>
+    <p><a href="mailto:contacto@foodconnections.com" class="text-white">contacto@foodconnections.com</a></p>
+  </footer>
 </template>
 
 <script>
 import axios from 'axios';
 import { useGlobalStore } from "../../store/global.js";
+import {computed} from "vue";
 
 export default {
+
   data() {
     return {
       globalStore: useGlobalStore(),
       receta: {},
+
     };
   },
   created() {
@@ -80,6 +87,9 @@ export default {
 </script>
 
 <style scoped>
+.bg-dark {
+  background-color: #2c3e50 !important;
+}
 .detalle-receta {
   max-width: 1200px;
   margin: auto;
@@ -238,5 +248,7 @@ export default {
     flex-direction: column;
     align-items: center;
   }
+
+
 }
 </style>

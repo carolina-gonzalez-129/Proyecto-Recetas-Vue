@@ -35,6 +35,10 @@
       <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
   </div>
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <p>&copy; 2024 Food Connections.</p>
+    <p><a href="mailto:contacto@foodconnections.com" class="text-white">contacto@foodconnections.com</a></p>
+  </footer>
 </template>
 
 <script>
