@@ -39,9 +39,9 @@ export default {
         const response = await axios.get('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas');
         const recipes = response.data;
 
-        const ordenadosPorClicks = recipes.sort(function (r1,r2){
-          return r1.contador_clicks - r2.contador_clicks;
-        });
+
+        const funcionComparadora = (r1,r2) => {return r1.contador_clicks - r2.contador_clicks};
+        const ordenadosPorClicks = recipes.sort(funcionComparadora);
         //el orden es ascendente asiq seria el ultimo elemento
 
         const receta =  ordenadosPorClicks[ordenadosPorClicks.length-1];
