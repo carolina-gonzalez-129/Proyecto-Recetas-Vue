@@ -38,6 +38,10 @@
         >
           Eliminar
         </a>
+
+        <a v-if="receta.id && globalStore.getActiveUsername === 'admin'">
+          {{ receta.contador_clicks }} visitas
+        </a>
       </section>
     </div>
   </div>
