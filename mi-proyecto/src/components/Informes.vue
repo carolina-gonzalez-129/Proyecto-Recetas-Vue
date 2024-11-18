@@ -1,14 +1,19 @@
 <template>
   <div>
     <h1>Informes para el admin</h1>
-    <h2>Mejor Receta</h2>
-    <p v-if="topReceta">{{ topReceta }}</p>
-    <p v-else>No se ha encontrado ninguna receta.</p>
+    <h2>Receta mas vista </h2>
+    <p v-if="topReceta && contador_max>0">
+      {{ topReceta }} - {{ contador_max }} clicks
+    </p>
+    <p v-else>
+      No hay recetas disponibles.
+    </p>
 
     <h3>Usuario mas activo</h3>
     <p v-if="topUser.length > 0">{{ topUser[0].name }} - {{ topUser[0].recipeCount }} recetas</p>
     <p v-else>No se ha encontrado al user con más recetas.</p>
   </div>
+
   <footer class="bg-dark text-white text-center py-3 mt-5">
     <p>&copy; 2024 Food Connections.</p>
     <p><a href="mailto:contacto@foodconnections.com" class="text-white">contacto@foodconnections.com</a></p>
@@ -24,6 +29,8 @@ export default {
     return {
       topReceta: null,
       topUser: [],
+      contador_max:0,
+
     };
   },
   methods: {
@@ -31,7 +38,16 @@ export default {
       try {
         const response = await axios.get('https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas');
         const recipes = response.data;
-        this.topReceta = recipes.length > 0 ? recipes[0].nombre : null;
+
+        const ordenadosPorClicks = recipes.sort(function (r1,r2){
+          return r1.contador_clicks - r2.contador_clicks;
+        });
+        //el orden es ascendente asiq seria el ultimo elemento
+
+        const receta =  ordenadosPorClicks[ordenadosPorClicks.length-1];
+        this.topReceta = receta.nombre;
+      this.contador_max = receta.contador_clicks;
+
       } catch (error) {
         console.error(error);
       }
@@ -59,9 +75,11 @@ export default {
       }
     },
   },
-  mounted() {
-    this.fetchUser();
-    this.fetchReceta();
+
+    mounted() {
+   this.fetchUser();
+   this.fetchReceta();
+
   },
 };
 </script>

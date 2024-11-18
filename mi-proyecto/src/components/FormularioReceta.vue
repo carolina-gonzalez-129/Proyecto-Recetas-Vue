@@ -85,7 +85,8 @@ export default {
         ingredientes: [],
         pasos: [],
         imagen: '',
-        autor: ''
+        autor: '',
+        contador_clicks:0
       },
 
 

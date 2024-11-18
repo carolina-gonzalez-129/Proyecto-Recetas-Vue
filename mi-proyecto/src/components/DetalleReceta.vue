@@ -7,6 +7,7 @@
 
     <p class="descripcion-receta">{{ receta.descripcion }}</p>
 
+
     <div class="contenido-receta">
       <h2 class="subtitulo">Ingredientes</h2>
       <ul class="lista-ingredientes">
@@ -69,6 +70,11 @@ export default {
         const id = this.$route.params.id;
         const response = await axios.get(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`);
         this.receta = response.data;
+        this.receta.contador_clicks += 1;
+        await axios.put(`https://670ed6f63e7151861655ee25.mockapi.io/uwu/recetas/${id}`, {
+          contador_clicks: this.receta.contador_clicks,
+        });
+
       } catch (error) {
         console.error(error);
       }
