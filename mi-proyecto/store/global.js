@@ -6,11 +6,11 @@ export const useGlobalStore = defineStore('global', {
     }),
     actions: {
         setActiveUsername(username) {
-            this.activeUsername = username;
-        },
+                this.activeUsername = username;
+            },
 
-        logout(){
-            this.activeUsername = '';
+            logout(){
+                this.activeUsername = '';
         }
     },
     getters: {

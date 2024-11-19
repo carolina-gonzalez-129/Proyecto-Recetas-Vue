@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-5 expanded-content">
     <h2>Iniciar Sesión</h2>
     <form @submit.prevent="login">
       <div class="mb-3">
@@ -73,6 +73,16 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 600px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 60px;
+  text-align: center;
 }
+.bg-dark {
+  background-color: #2c3e50 !important;
+}
+.expanded-content {
+  min-height: 70vh;
+}
+
 </style>

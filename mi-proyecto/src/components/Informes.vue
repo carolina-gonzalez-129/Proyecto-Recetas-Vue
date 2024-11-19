@@ -1,17 +1,30 @@
 <template>
-  <div>
-    <h1>Informes para el admin</h1>
-    <h2>Receta mas vista </h2>
-    <p v-if="topReceta && contador_max>0">
-      {{ topReceta }} - {{ contador_max }} clicks
-    </p>
-    <p v-else>
-      No hay recetas disponibles.
-    </p>
+  <div class="container mt-5 expanded-content">
+    <h1 class="titulo">Informes para el administrador</h1>
+    <div class="image-container">
+      <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0rvqaR6k7TI46PzU0Ut9jZEz9hlRTx1W7g&s"
+          alt="Imagen generada por DALL-E"
+          class="img-fluid rounded shadow-lg">
+    </div>
 
-    <h3>Usuario mas activo</h3>
-    <p v-if="topUser.length > 0">{{ topUser[0].name }} - {{ topUser[0].recipeCount }} recetas</p>
-    <p v-else>No se ha encontrado al user con más recetas.</p>
+    <h2 class="titulo2">Receta mas vista </h2>
+
+    <h3 class ="mas_popular" v-if="topReceta && contador_max > 0" style="text-align: center;">
+      {{ topReceta }} - {{ contador_max }} clicks
+    </h3>
+    <h3 v-else>
+      No se ha encontrado ninguna receta
+    </h3>
+
+    <h2 class="titulo2">Usuario mas activo </h2>
+    <h3 class ="mas_popular" v-if="topUser.length > 0">
+      {{ topUser[0].name }} - {{ topUser[0].recipeCount }} recetas
+    </h3>
+    <h3 v-else>
+      No se ha encontrado al user con más recetas.
+    </h3>
+
   </div>
 
   <footer class="bg-dark text-white text-center py-3 mt-5">
@@ -92,8 +105,44 @@ export default {
 .bg-dark {
   background-color: #2c3e50 !important;
 }
+.titulo {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.image-container {
+  margin: 30px auto;
+  max-width: 60%;
+}
+.img-fluid {
+  width: 50%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.container {
+  text-align: center;
+}
+.titulo2 {
+  font-style: normal;
+  font-weight: 300;
+  text-align: center;
+
+}
+.mas_popular {
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
 
 
+
+.expanded-content {
+  min-height: 70vh;
+}
 
 
 

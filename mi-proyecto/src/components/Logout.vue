@@ -1,5 +1,6 @@
 <template>
-  <div class="container mt-5">
+
+  <div class="container mt-5 expanded-content">
     <button @click="logoutUser" class="btn btn-danger mt-3">Cerrar sesion</button>
   </div>
   <footer class="bg-dark text-white text-center py-3 mt-5">
@@ -25,7 +26,17 @@ export default {
 };
 </script>
 <style scoped>
+.container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 60px;
+  text-align: center;
+}
 .bg-dark {
   background-color: #2c3e50 !important;
 }
+.expanded-content {
+  min-height: 70vh;
+}
+
 </style>
